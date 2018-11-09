@@ -4,6 +4,7 @@ import Dict exposing (Dict)
 import Expect exposing (Expectation)
 import Fuzz exposing (Fuzzer, int, list, string)
 import List.Extra as List
+import Properties.Replicated as Properties
 import Random
 import Replicated
 import Replicated.Clock as Clock exposing (Clock, config)
@@ -68,7 +69,7 @@ suite =
                             Clock.init "remote" |> repeat remoteTicks Clock.tick
                     in
                     ( localClock, remoteClock )
-                        |> syncTo expectedView
+                        |> Properties.syncTo Clock.config expectedView
             , test "merges two independent clocks that have synced before" <|
                 \_ ->
                     let
@@ -86,7 +87,7 @@ suite =
                                 |> Tuple.mapSecond (repeat 3 Clock.tick)
                     in
                     updatedClocks
-                        |> syncTo expectedView
+                        |> Properties.syncTo Clock.config expectedView
             ]
         ]
 
