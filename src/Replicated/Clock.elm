@@ -3,7 +3,7 @@
 -- file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-module Replicated.Clock exposing (Clock, config, diff, init, localID, merge, tick, version, view)
+module Replicated.Clock exposing (Clock, config, diff, fromView, init, localID, merge, tick, view)
 
 import Dict exposing (Dict)
 import Replicated exposing (Config)
@@ -15,7 +15,7 @@ type Clock
 
 config : Config Clock () (Dict String Int) (Dict String Int)
 config =
-    { init = init, view = view, version = version, diff = diff, merge = merge }
+    { init = init, view = view, version = always (), diff = diff, merge = merge }
 
 
 init : String -> Clock
@@ -40,9 +40,9 @@ view (Clock _ state) =
     state
 
 
-version : Clock -> ()
-version _ =
-    ()
+fromView : String -> Dict String Int -> Clock
+fromView =
+    Clock
 
 
 diff : () -> Clock -> Dict String Int

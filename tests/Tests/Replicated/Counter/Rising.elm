@@ -12,7 +12,7 @@ import Test exposing (..)
 
 suite : Test
 suite =
-    describe "Replicated.Rising.Counter"
+    describe "Replicated.Counter.Rising"
         [ describe "init"
             [ test "has a zero view" <|
                 \_ ->
@@ -30,7 +30,7 @@ suite =
             ]
         , fuzz (countersAndEvents 3) "is eventually consistent" <|
             Properties.eventuallyConsistent testConfig
-        , fuzz (countersAndEvents 3) "preserves the sum total of ticks" <|
+        , fuzz (countersAndEvents 3) "preserves the sum total" <|
             \( initClocks, events ) ->
                 let
                     expectedView =
@@ -68,5 +68,5 @@ operation =
 
 
 run : Operation -> RisingCounter -> RisingCounter
-run (Incr) =
+run Incr =
     RisingCounter.incr

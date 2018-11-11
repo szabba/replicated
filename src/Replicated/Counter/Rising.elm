@@ -3,7 +3,7 @@
 -- file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-module Replicated.Counter.Rising exposing (RisingCounter, config, incr, init, view)
+module Replicated.Counter.Rising exposing (RisingCounter, config, diff, incr, init, merge, view)
 
 import Dict exposing (Dict)
 import Replicated exposing (Config)
@@ -62,4 +62,4 @@ merge deltas (RisingCounter ({ clock } as guts)) =
         newClock =
             clock |> Clock.merge deltas
     in
-    RisingCounter { guts | clock = newClock}
+    RisingCounter { guts | clock = newClock }
