@@ -1,5 +1,9 @@
+.idea/
+*.iml
 .vscode/
 elm-stuff/
 node_modules/
 package.json
 yarn.lock
+*.todo
+TODO.markdown
